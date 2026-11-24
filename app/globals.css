@@ -1,0 +1,299 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Sheba Shathi — "Chamber" design system
+  Drawn from the doctor's chamber and the prescription slip, not from medtech:
+  clinic teal (care, calm) · marigold/গাঁদা (the human accent) · sindoor red (critical)
+  Fonts: Bricolage Grotesque (display) · Plus Jakarta Sans (UI) · IBM Plex Mono (doses, vitals, IDs)
+         Noto Sans Bengali sits last in every stack — the browser falls back per
+         glyph, so Bangla renders in it wherever it appears without any wrapper.
+
+  Severity is the product's thesis: every triage branches on it, so it gets a
+  full four-step ordinal scale (mild → moderate → severe → critical) rather than
+  being folded into generic "success / warning / error" tones.
+*/
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --font-sans: "Plus Jakarta Sans", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Bricolage Grotesque", "Noto Sans Bengali", ui-sans-serif, system-ui, sans-serif;
+  /* Bengali has no monospace companion; a dose carrying Bangla loses the grid
+     but stays legible. Dosages and vitals are Latin numerals anyway. */
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Brand accents */
+  --color-marigold: var(--marigold);
+  --color-marigold-foreground: var(--marigold-foreground);
+  --color-seal: var(--seal);
+
+  /* Severity scale — the ordinal spine of the whole product */
+  --color-mild: var(--mild);
+  --color-mild-soft: var(--mild-soft);
+  --color-moderate: var(--moderate);
+  --color-moderate-soft: var(--moderate-soft);
+  --color-severe: var(--severe);
+  --color-severe-soft: var(--severe-soft);
+  --color-critical: var(--critical);
+  --color-critical-soft: var(--critical-soft);
+
+  /* Record / session statuses */
+  --color-live: var(--live);
+  --color-live-soft: var(--live-soft);
+  --color-pending: var(--pending);
+  --color-pending-soft: var(--pending-soft);
+  --color-done: var(--done);
+  --color-done-soft: var(--done-soft);
+  --color-off: var(--off);
+  --color-off-soft: var(--off-soft);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.85);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.5);
+  --radius-2xl: calc(var(--radius) * 2);
+  --radius-3xl: calc(var(--radius) * 2.6);
+  --radius-4xl: calc(var(--radius) * 3.2);
+}
+
+:root {
+  --radius: 0.5rem;
+
+  /* Surfaces — clinic paper: a clean white with the faintest teal cast */
+  --background: #f4f7f6;
+  --foreground: #12262c;
+  --card: #ffffff;
+  --card-foreground: #12262c;
+  --popover: #ffffff;
+  --popover-foreground: #12262c;
+
+  /* Clinic teal — care, calm, competence. Deliberately not medtech blue. */
+  --primary: #0b6a72;
+  --primary-foreground: #f2f9f9;
+
+  --secondary: #e3edec;
+  --secondary-foreground: #1c3a40;
+  --muted: #e9eeed;
+  --muted-foreground: #5a6d71;
+  --accent: #dcebea;
+  --accent-foreground: #0b6a72;
+
+  /* Sindoor red — destructive and critical share one voice */
+  --destructive: #a8291d;
+
+  --border: #dbe4e3;
+  --input: #cbd8d7;
+  --ring: #12868f;
+
+  /* Marigold (গাঁদা) — the human accent. Used sparingly: live, active, care. */
+  --marigold: #dd8a15;
+  --marigold-foreground: #221302;
+  --seal: #a8291d;
+
+  /* Severity — four ordinal steps, each a solid text color + soft background */
+  --mild: #14713f;
+  --mild-soft: #d9eee1;
+  --moderate: #8f6111;
+  --moderate-soft: #f7ecd4;
+  --severe: #a34d17;
+  --severe-soft: #f7e3d2;
+  --critical: #9c2418;
+  --critical-soft: #f7dcd8;
+
+  /* Statuses */
+  --live: #a86a05;
+  --live-soft: #fbeed3;
+  --pending: #3f5f66;
+  --pending-soft: #e0eaec;
+  --done: #14713f;
+  --done-soft: #d9eee1;
+  --off: #5a6d71;
+  --off-soft: #e9eeed;
+
+  /* Clinical chart palette */
+  --chart-1: #0b6a72;
+  --chart-2: #35a09a;
+  --chart-3: #dd8a15;
+  --chart-4: #a8291d;
+  --chart-5: #4b6f8a;
+
+  /* Chamber-ink sidebar with a marigold active state */
+  --sidebar: #0f2b31;
+  --sidebar-foreground: #bfd3d4;
+  --sidebar-primary: #e9a239;
+  --sidebar-primary-foreground: #14261e;
+  --sidebar-accent: #173a41;
+  --sidebar-accent-foreground: #eef6f5;
+  --sidebar-border: #1d454d;
+  --sidebar-ring: #e9a239;
+}
+
+.dark {
+  /* Night-shift canvas — deep teal-black */
+  --background: #0a1518;
+  --foreground: #e3ecea;
+  --card: #112126;
+  --card-foreground: #e3ecea;
+  --popover: #112126;
+  --popover-foreground: #e3ecea;
+
+  --primary: #46b0b0;
+  --primary-foreground: #04100f;
+
+  --secondary: #172b30;
+  --secondary-foreground: #e3ecea;
+  --muted: #16282c;
+  --muted-foreground: #97aeae;
+  --accent: #1c333a;
+  --accent-foreground: #e3ecea;
+
+  --destructive: #d1604f;
+
+  --border: #22353a;
+  --input: #2b4046;
+  --ring: #46b0b0;
+
+  --marigold: #e9a239;
+  --marigold-foreground: #0a1518;
+  --seal: #d1604f;
+
+  --mild: #6fc494;
+  --mild-soft: #10301f;
+  --moderate: #dfb96f;
+  --moderate-soft: #2f2513;
+  --severe: #e09a63;
+  --severe-soft: #321f12;
+  --critical: #e58a7b;
+  --critical-soft: #331916;
+
+  --live: #e9a239;
+  --live-soft: #2e2110;
+  --pending: #9fbcc3;
+  --pending-soft: #16272c;
+  --done: #6fc494;
+  --done-soft: #10301f;
+  --off: #97aeae;
+  --off-soft: #16282c;
+
+  --chart-1: #46b0b0;
+  --chart-2: #6fc494;
+  --chart-3: #e9a239;
+  --chart-4: #d1604f;
+  --chart-5: #7fa0bd;
+
+  --sidebar: #071114;
+  --sidebar-foreground: #bfd3d4;
+  --sidebar-primary: #e9a239;
+  --sidebar-primary-foreground: #071114;
+  --sidebar-accent: #14252a;
+  --sidebar-accent-foreground: #eef6f5;
+  --sidebar-border: #1a2f34;
+  --sidebar-ring: #e9a239;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+    letter-spacing: -0.017em;
+  }
+}
+
+@layer utilities {
+  /* Signature texture — ECG graph paper. Real ECG paper is a fine 1mm grid with
+     a bold 5mm rule; that proportion is what makes it read as clinical rather
+     than as a generic dot-grid. Kept faint and used only behind the auth screen
+     and dashboard headers, so the triage spine stays the loud element. */
+  .ecg-paper {
+    --ecg-fine: color-mix(in oklab, var(--primary) 7%, transparent);
+    --ecg-bold: color-mix(in oklab, var(--primary) 14%, transparent);
+    background-image:
+      linear-gradient(to right, var(--ecg-bold) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--ecg-bold) 1px, transparent 1px),
+      linear-gradient(to right, var(--ecg-fine) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--ecg-fine) 1px, transparent 1px);
+    background-size: 60px 60px, 60px 60px, 12px 12px, 12px 12px;
+  }
+  /* For use on the dark chamber-ink surfaces */
+  .ecg-paper-light {
+    --ecg-fine: color-mix(in oklab, white 5%, transparent);
+    --ecg-bold: color-mix(in oklab, white 10%, transparent);
+  }
+
+  /* Doses, vitals, timers, record IDs — anything read digit by digit */
+  .tabular {
+    font-family: var(--font-mono);
+    font-feature-settings: "tnum" 1;
+    letter-spacing: -0.01em;
+  }
+
+  /* The live-consultation pulse. Motion is reserved for genuinely live state. */
+  .pulse-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: currentColor;
+    animation: pulse-ring 1.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  @keyframes pulse-ring {
+    0% { opacity: 0.55; transform: scale(1); }
+    70%, 100% { opacity: 0; transform: scale(2.4); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

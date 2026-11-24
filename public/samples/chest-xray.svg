@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 480" width="400" height="480" role="img" aria-label="Sample chest radiograph, PA view">
+  <title>Sample chest radiograph (PA view)</title>
+  <desc>A synthetic stand-in for a chest X-ray, used to demonstrate report analysis. Not a real patient image.</desc>
+
+  <defs>
+    <radialGradient id="lung" cx="50%" cy="45%" r="60%">
+      <stop offset="0%" stop-color="#2b3238"/>
+      <stop offset="70%" stop-color="#1a1f23"/>
+      <stop offset="100%" stop-color="#12161a"/>
+    </radialGradient>
+    <linearGradient id="soft" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#5c6873" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#39424b" stop-opacity="0.35"/>
+    </linearGradient>
+    <radialGradient id="consolidation" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#c9d2da" stop-opacity="0.55"/>
+      <stop offset="60%" stop-color="#9aa6b1" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#6d7883" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="rightLung">
+      <path d="M186 96 C150 96 116 132 106 190 C97 244 104 300 122 348 C134 380 158 396 182 392 L186 392 Z"/>
+    </clipPath>
+  </defs>
+
+  <rect width="400" height="480" fill="#0c1013"/>
+
+  <!-- Soft-tissue shoulders and chest wall -->
+  <path d="M40 120 C90 74 150 56 200 56 C250 56 310 74 360 120 L360 480 L40 480 Z" fill="url(#soft)" opacity="0.5"/>
+
+  <!-- Lung fields -->
+  <path d="M186 96 C150 96 116 132 106 190 C97 244 104 300 122 348 C134 380 158 396 182 392 L186 392 Z" fill="url(#lung)"/>
+  <path d="M214 96 C250 96 284 132 294 190 C303 244 296 300 278 348 C266 380 242 396 218 392 L214 392 Z" fill="url(#lung)"/>
+
+  <!-- Spine and mediastinum -->
+  <rect x="188" y="80" width="24" height="330" rx="10" fill="#7d8892" opacity="0.5"/>
+  <g stroke="#0c1013" stroke-width="2.5" opacity="0.5">
+    <line x1="188" y1="118" x2="212" y2="118"/>
+    <line x1="188" y1="152" x2="212" y2="152"/>
+    <line x1="188" y1="186" x2="212" y2="186"/>
+    <line x1="188" y1="220" x2="212" y2="220"/>
+    <line x1="188" y1="254" x2="212" y2="254"/>
+    <line x1="188" y1="288" x2="212" y2="288"/>
+    <line x1="188" y1="322" x2="212" y2="322"/>
+    <line x1="188" y1="356" x2="212" y2="356"/>
+  </g>
+
+  <!-- Cardiac silhouette -->
+  <path d="M200 250 C232 250 262 288 262 330 C262 366 236 388 204 390 L200 390 Z" fill="#9aa4ad" opacity="0.42"/>
+
+  <!-- Clavicles -->
+  <path d="M96 128 C136 108 172 104 194 108" stroke="#aab3bc" stroke-width="9" fill="none" opacity="0.55" stroke-linecap="round"/>
+  <path d="M304 128 C264 108 228 104 206 108" stroke="#aab3bc" stroke-width="9" fill="none" opacity="0.55" stroke-linecap="round"/>
+
+  <!-- Ribs -->
+  <g stroke="#b6bfc7" stroke-width="5" fill="none" opacity="0.32" stroke-linecap="round">
+    <path d="M188 150 C154 146 122 166 108 200"/>
+    <path d="M188 188 C150 184 116 206 102 244"/>
+    <path d="M188 226 C150 224 116 248 104 288"/>
+    <path d="M188 264 C152 264 122 290 114 328"/>
+    <path d="M188 302 C156 304 132 328 126 360"/>
+    <path d="M212 150 C246 146 278 166 292 200"/>
+    <path d="M212 188 C250 184 284 206 298 244"/>
+    <path d="M212 226 C250 224 284 248 296 288"/>
+    <path d="M212 264 C248 264 278 290 286 328"/>
+    <path d="M212 302 C244 304 268 328 274 360"/>
+  </g>
+
+  <!-- Diaphragm -->
+  <path d="M106 356 C136 392 172 400 186 398 L186 412 L104 412 Z" fill="#8b959e" opacity="0.5"/>
+  <path d="M294 366 C266 398 234 406 214 404 L214 416 L296 416 Z" fill="#8b959e" opacity="0.5"/>
+
+  <!-- The finding: patchy consolidation in the right lower zone, which on a PA
+       film is the viewer's left. Sits inside the box the analyser reports. -->
+  <g clip-path="url(#rightLung)">
+    <ellipse cx="132" cy="315" rx="46" ry="40" fill="url(#consolidation)"/>
+    <ellipse cx="150" cy="330" rx="28" ry="24" fill="url(#consolidation)" opacity="0.7"/>
+  </g>
+
+  <text x="356" y="42" fill="#7f8a94" font-family="monospace" font-size="15" text-anchor="end">R</text>
+  <text x="20" y="466" fill="#5b656e" font-family="monospace" font-size="11">SAMPLE · NOT A PATIENT IMAGE</text>
+</svg>
